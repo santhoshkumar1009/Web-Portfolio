@@ -1,0 +1,557 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-sans); color: var(--color-text-primary); }
+  a { text-decoration: none; color: inherit; }
+
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--color-background-primary);
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .nav-logo {
+    font-size: 20px; font-weight: 500; color: #185FA5;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .nav-logo span { color: var(--color-text-primary); }
+  .nav-links { display: flex; gap: 1.5rem; }
+  .nav-links a { font-size: 14px; color: var(--color-text-secondary); transition: color 0.2s; }
+  .nav-links a:hover { color: #185FA5; }
+  .nav-cta {
+    background: #185FA5; color: #fff; padding: 8px 18px;
+    border-radius: var(--border-radius-md); font-size: 13px; font-weight: 500;
+    border: none; cursor: pointer; transition: background 0.2s;
+  }
+  .nav-cta:hover { background: #0C447C; }
+
+  .hero {
+    padding: 5rem 2rem 4rem;
+    text-align: center;
+    background: linear-gradient(180deg, #E6F1FB 0%, var(--color-background-primary) 100%);
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+  }
+  .hero-badge {
+    display: inline-block; background: #B5D4F4; color: #0C447C;
+    font-size: 12px; font-weight: 500; padding: 4px 14px;
+    border-radius: 100px; margin-bottom: 1.25rem;
+  }
+  .hero h1 { font-size: 42px; font-weight: 500; line-height: 1.2; margin-bottom: 1rem; }
+  .hero h1 em { font-style: normal; color: #185FA5; }
+  .hero p { font-size: 17px; color: var(--color-text-secondary); max-width: 560px; margin: 0 auto 2rem; line-height: 1.7; }
+  .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: #185FA5; color: #fff; padding: 12px 28px;
+    border-radius: var(--border-radius-md); font-size: 15px; font-weight: 500;
+    border: none; cursor: pointer; transition: background 0.2s;
+  }
+  .btn-primary:hover { background: #0C447C; }
+  .btn-outline {
+    background: transparent; color: #185FA5; padding: 12px 28px;
+    border-radius: var(--border-radius-md); font-size: 15px; font-weight: 500;
+    border: 1.5px solid #185FA5; cursor: pointer; transition: all 0.2s;
+  }
+  .btn-outline:hover { background: #E6F1FB; }
+
+  .stats {
+    display: flex; justify-content: center; gap: 3rem;
+    padding: 2rem 2rem 0; flex-wrap: wrap;
+  }
+  .stat-item { text-align: center; }
+  .stat-num { font-size: 28px; font-weight: 500; color: #185FA5; }
+  .stat-label { font-size: 13px; color: var(--color-text-secondary); margin-top: 2px; }
+
+  section { padding: 4rem 2rem; max-width: 960px; margin: 0 auto; }
+  .section-label {
+    font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+    color: #185FA5; margin-bottom: 0.5rem;
+  }
+  .section-title { font-size: 28px; font-weight: 500; margin-bottom: 0.5rem; }
+  .section-sub { font-size: 16px; color: var(--color-text-secondary); margin-bottom: 2.5rem; max-width: 520px; }
+
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+  .service-card {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    padding: 1.25rem;
+    transition: border-color 0.2s;
+  }
+  .service-card:hover { border-color: #378ADD; }
+  .service-icon {
+    width: 40px; height: 40px; border-radius: var(--border-radius-md);
+    background: #E6F1FB; display: flex; align-items: center; justify-content: center;
+    margin-bottom: 12px;
+  }
+  .service-icon svg { width: 20px; height: 20px; fill: #185FA5; }
+  .service-card h3 { font-size: 15px; font-weight: 500; margin-bottom: 6px; }
+  .service-card p { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; }
+
+  .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+  .team-card {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    padding: 1.5rem; text-align: center;
+  }
+  .avatar {
+    width: 72px; height: 72px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; font-weight: 500; margin: 0 auto 14px;
+  }
+  .avatar-sk { background: #E6F1FB; color: #0C447C; }
+  .avatar-su { background: #EAF3DE; color: #27500A; }
+  .team-card h3 { font-size: 17px; font-weight: 500; margin-bottom: 4px; }
+  .team-role { font-size: 13px; color: #185FA5; font-weight: 500; margin-bottom: 10px; }
+  .team-college { font-size: 12px; color: var(--color-text-secondary); margin-bottom: 14px; line-height: 1.5; }
+  .team-contacts { display: flex; flex-direction: column; gap: 6px; }
+  .contact-row {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--color-background-secondary);
+    border-radius: var(--border-radius-md); padding: 6px 10px;
+    font-size: 12px; color: var(--color-text-secondary);
+  }
+  .contact-row svg { width: 13px; height: 13px; fill: #378ADD; flex-shrink: 0; }
+
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+  .project-card {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden; transition: border-color 0.2s;
+  }
+  .project-card:hover { border-color: #378ADD; }
+  .project-thumb {
+    height: 130px; display: flex; align-items: center; justify-content: center;
+    font-size: 13px; color: var(--color-text-secondary);
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+  }
+  .thumb-1 { background: #E6F1FB; }
+  .thumb-2 { background: #EAF3DE; }
+  .thumb-3 { background: #FAEEDA; }
+  .project-body { padding: 1rem; }
+  .project-body h3 { font-size: 15px; font-weight: 500; margin-bottom: 5px; }
+  .project-body p { font-size: 12px; color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 10px; }
+  .project-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tag {
+    font-size: 11px; font-weight: 500; padding: 3px 8px;
+    border-radius: 100px; background: #E6F1FB; color: #0C447C;
+  }
+  .tag-green { background: #EAF3DE; color: #27500A; }
+  .tag-amber { background: #FAEEDA; color: #633806; }
+  .project-placeholder {
+    height: 130px; display: flex; align-items: center; justify-content: center;
+    background: var(--color-background-secondary); flex-direction: column; gap: 6px;
+  }
+  .project-placeholder svg { width: 28px; height: 28px; fill: var(--color-text-secondary); opacity: 0.4; }
+  .project-placeholder span { font-size: 12px; color: var(--color-text-secondary); }
+
+  .process-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0; position: relative; }
+  .process-step {
+    padding: 1.5rem 1rem; text-align: center; position: relative;
+  }
+  .step-num {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: #185FA5; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 500; margin: 0 auto 12px;
+  }
+  .process-step h3 { font-size: 14px; font-weight: 500; margin-bottom: 5px; }
+  .process-step p { font-size: 12px; color: var(--color-text-secondary); line-height: 1.6; }
+
+  .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+  .why-item {
+    padding: 1.25rem; border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg); background: var(--color-background-primary);
+  }
+  .why-item h3 { font-size: 14px; font-weight: 500; margin-bottom: 5px; display: flex; align-items: center; gap: 7px; }
+  .check { width: 16px; height: 16px; border-radius: 50%; background: #EAF3DE; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .check svg { width: 9px; height: 9px; fill: #3B6D11; }
+  .why-item p { font-size: 12px; color: var(--color-text-secondary); line-height: 1.6; }
+
+  .feedback-wrap {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    padding: 2rem;
+  }
+  .feedback-wrap h3 { font-size: 18px; font-weight: 500; margin-bottom: 0.25rem; }
+  .feedback-wrap .sub { font-size: 14px; color: var(--color-text-secondary); margin-bottom: 1.5rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .form-group { display: flex; flex-direction: column; gap: 5px; }
+  .form-group label { font-size: 13px; font-weight: 500; color: var(--color-text-secondary); }
+  .form-group input, .form-group select, .form-group textarea {
+    padding: 9px 12px; border-radius: var(--border-radius-md);
+    border: 0.5px solid var(--color-border-secondary);
+    background: var(--color-background-secondary);
+    font-size: 14px; color: var(--color-text-primary);
+    font-family: var(--font-sans); outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: #185FA5;
+    box-shadow: 0 0 0 3px #B5D4F480;
+  }
+  .form-group textarea { resize: vertical; min-height: 90px; }
+  .stars { display: flex; gap: 6px; margin-bottom: 12px; }
+  .star {
+    font-size: 24px; cursor: pointer; color: #D3D1C7;
+    transition: color 0.15s; user-select: none;
+  }
+  .star.active { color: #EF9F27; }
+  .star-label { font-size: 13px; color: var(--color-text-secondary); margin-bottom: 6px; }
+  .submit-btn {
+    width: 100%; background: #185FA5; color: #fff;
+    padding: 12px; border-radius: var(--border-radius-md);
+    font-size: 15px; font-weight: 500; border: none; cursor: pointer;
+    transition: background 0.2s; margin-top: 4px;
+  }
+  .submit-btn:hover { background: #0C447C; }
+  .success-msg {
+    display: none; text-align: center; padding: 1.5rem;
+    background: #EAF3DE; border-radius: var(--border-radius-md);
+    color: #27500A; font-size: 15px; margin-top: 12px;
+  }
+
+  .contact-bar {
+    background: #E6F1FB; border-radius: var(--border-radius-lg);
+    padding: 1.5rem 2rem;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+  }
+  .contact-bar h3 { font-size: 16px; font-weight: 500; }
+  .contact-bar p { font-size: 13px; color: #185FA5; }
+  .contact-info { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .contact-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #0C447C; }
+  .contact-item svg { width: 15px; height: 15px; fill: #185FA5; }
+
+  .footer {
+    text-align: center; padding: 2rem;
+    border-top: 0.5px solid var(--color-border-tertiary);
+    font-size: 13px; color: var(--color-text-secondary);
+  }
+  .footer strong { color: var(--color-text-primary); }
+
+  @media(max-width:600px) {
+    .hero h1 { font-size: 28px; }
+    .form-row { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .stats { gap: 1.5rem; }
+  }
+</style>
+
+<nav class="nav">
+  <div class="nav-logo">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+      <rect width="22" height="22" rx="5" fill="#185FA5"/>
+      <path d="M5 11L9 15L17 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Dev<span>Craft</span>
+  </div>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#team">Team</a>
+    <a href="#projects">Projects</a>
+    <a href="#process">Process</a>
+    <a href="#feedback">Feedback</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <button class="nav-cta" onclick="document.getElementById('feedback').scrollIntoView({behavior:'smooth'})">Get in touch</button>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">Web Development Studio</div>
+  <h1>We build <em>websites</em> that<br>work for your business</h1>
+  <p>Professional, fast, and affordable web development for businesses, startups, and individuals. From concept to launch — we handle everything.</p>
+  <div class="hero-btns">
+    <button class="btn-primary" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">View Our Work</button>
+    <button class="btn-outline" onclick="document.getElementById('feedback').scrollIntoView({behavior:'smooth'})">Start a Project</button>
+  </div>
+  <div class="stats">
+    <div class="stat-item"><div class="stat-num">10+</div><div class="stat-label">Projects delivered</div></div>
+    <div class="stat-item"><div class="stat-num">100%</div><div class="stat-label">Client satisfaction</div></div>
+    <div class="stat-item"><div class="stat-num">2</div><div class="stat-label">Expert founders</div></div>
+    <div class="stat-item"><div class="stat-num">Fast</div><div class="stat-label">Turnaround time</div></div>
+  </div>
+</div>
+
+<section id="services">
+  <div class="section-label">What we offer</div>
+  <div class="section-title">Our services</div>
+  <div class="section-sub">Everything you need to build a strong online presence — built by students who code with passion.</div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M3 3h18v14H3zM8 21h8M12 17v4"/></svg></div>
+      <h3>Website design</h3>
+      <p>Clean, modern designs tailored to your brand. Mobile-first and pixel-perfect.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M16 18L22 12L16 6M8 6L2 12L8 18"/></svg></div>
+      <h3>Frontend development</h3>
+      <p>Fast, responsive web pages built with modern HTML, CSS, and JavaScript.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+      <h3>Full-stack apps</h3>
+      <p>End-to-end web applications with databases, authentication, and APIs.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <h3>Maintenance & support</h3>
+      <p>Ongoing support, updates, and improvements after your site goes live.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.72 6.72l1.29-1.29a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+      <h3>Landing pages</h3>
+      <p>High-converting landing pages for products, services, and campaigns.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></div>
+      <h3>Portfolio websites</h3>
+      <p>Showcase your work beautifully with custom portfolio sites for creatives and professionals.</p>
+    </div>
+  </div>
+</section>
+
+<section id="team" style="background: var(--color-background-secondary); max-width: 100%; padding: 4rem 2rem;">
+  <div style="max-width: 960px; margin: 0 auto;">
+    <div class="section-label">The founders</div>
+    <div class="section-title">Meet the team</div>
+    <div class="section-sub">Two passionate second-year students from Rajalakshmi Engineering College, building real things for real people.</div>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="avatar avatar-sk">SK</div>
+        <h3>Santhoshkumar R</h3>
+        <div class="team-role">Co-Founder & Lead Developer</div>
+        <div class="team-college">B.E. Student — Rajalakshmi Engineering College<br>2nd Year</div>
+        <div class="team-contacts">
+          <div class="contact-row">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.15 2a2 2 0 012-2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.72 6.72l1.29-1.29a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            +91 6374122110
+          </div>
+          <div class="contact-row">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            santhoshkumar.r.1009@gmail.com
+          </div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="avatar avatar-su">SR</div>
+        <h3>Saurav Karunakaran</h3>
+        <div class="team-role">Co-Founder & UI/UX Designer</div>
+        <div class="team-college">B.E. Student — Rajalakshmi Engineering College<br>2nd Year</div>
+        <div class="team-contacts">
+          <div class="contact-row">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.15 2a2 2 0 012-2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.72 6.72l1.29-1.29a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            +91 8056428450
+          </div>
+          <div class="contact-row">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18c-4.418 0-8-3.582-8-8s3.582-8 8-8 8 3.582 8 8-3.582 8-8 8zm1-13h-2v6l5.25 3.15.75-1.23-4-2.37V7z"/></svg>
+            Available for collaboration
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-label">Our work</div>
+  <div class="section-title">Projects</div>
+  <div class="section-sub">A selection of websites and applications we've designed and built.</div>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-thumb thumb-1" style="display:flex;flex-direction:column;gap:6px;align-items:center;justify-content:center;">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="#185FA5"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        <span style="font-size:11px;color:#185FA5;font-weight:500;">Coming soon</span>
+      </div>
+      <div class="project-body">
+        <h3>Project 1</h3>
+        <p>Details will be shared shortly. Stay tuned for our latest work.</p>
+        <div class="project-tags"><span class="tag">Web design</span><span class="tag">React</span></div>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-thumb thumb-2" style="display:flex;flex-direction:column;gap:6px;align-items:center;justify-content:center;">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="#3B6D11"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        <span style="font-size:11px;color:#3B6D11;font-weight:500;">Coming soon</span>
+      </div>
+      <div class="project-body">
+        <h3>Project 2</h3>
+        <p>More exciting projects are on the way. Check back soon!</p>
+        <div class="project-tags"><span class="tag tag-green">Full stack</span><span class="tag tag-green">Node.js</span></div>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-thumb thumb-3" style="display:flex;flex-direction:column;gap:6px;align-items:center;justify-content:center;">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="#854F0B"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7" stroke="#854F0B" stroke-width="2"/></svg>
+        <span style="font-size:11px;color:#854F0B;font-weight:500;">Coming soon</span>
+      </div>
+      <div class="project-body">
+        <h3>Project 3</h3>
+        <p>Our portfolio is growing. Amazing work to be revealed soon.</p>
+        <div class="project-tags"><span class="tag tag-amber">UI/UX</span><span class="tag tag-amber">Figma</span></div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:13px;color:var(--color-text-secondary);margin-top:1rem;text-align:center;">Project details will be updated as soon as they're shared with us.</p>
+</section>
+
+<section id="process" style="background: var(--color-background-secondary); max-width: 100%; padding: 4rem 2rem;">
+  <div style="max-width: 960px; margin: 0 auto;">
+    <div class="section-label">How we work</div>
+    <div class="section-title">Our process</div>
+    <div class="section-sub">Simple, transparent, and collaborative — from brief to launch.</div>
+    <div class="process-steps">
+      <div class="process-step"><div class="step-num">1</div><h3>Discovery</h3><p>We learn about your business, goals, and target audience.</p></div>
+      <div class="process-step"><div class="step-num">2</div><h3>Design</h3><p>We create wireframes and visual designs for your approval.</p></div>
+      <div class="process-step"><div class="step-num">3</div><h3>Development</h3><p>We build your website with clean, fast, and scalable code.</p></div>
+      <div class="process-step"><div class="step-num">4</div><h3>Review</h3><p>You review, we refine — until it's exactly how you want it.</p></div>
+      <div class="process-step"><div class="step-num">5</div><h3>Launch</h3><p>We deploy your site and hand over everything you need.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Why us</div>
+  <div class="section-title">What sets us apart</div>
+  <div class="section-sub">Young, driven, and genuinely invested in your success.</div>
+  <div class="why-grid">
+    <div class="why-item">
+      <h3><span class="check"><svg viewBox="0 0 10 10"><path d="M2 5l2.5 2.5L8 3" stroke="#3B6D11" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg></span>Affordable pricing</h3>
+      <p>Student rates without compromising on quality. Great value for businesses of all sizes.</p>
+    </div>
+    <div class="why-item">
+      <h3><span class="check"><svg viewBox="0 0 10 10"><path d="M2 5l2.5 2.5L8 3" stroke="#3B6D11" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg></span>Clean code</h3>
+      <p>We write well-structured, maintainable code that's easy to hand off or scale later.</p>
+    </div>
+    <div class="why-item">
+      <h3><span class="check"><svg viewBox="0 0 10 10"><path d="M2 5l2.5 2.5L8 3" stroke="#3B6D11" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg></span>Mobile-first</h3>
+      <p>All our builds are fully responsive and optimized for every screen size.</p>
+    </div>
+    <div class="why-item">
+      <h3><span class="check"><svg viewBox="0 0 10 10"><path d="M2 5l2.5 2.5L8 3" stroke="#3B6D11" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg></span>Fast delivery</h3>
+      <p>We move quickly without cutting corners, so you can get online sooner.</p>
+    </div>
+    <div class="why-item">
+      <h3><span class="check"><svg viewBox="0 0 10 10"><path d="M2 5l2.5 2.5L8 3" stroke="#3B6D11" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg></span>Direct communication</h3>
+      <p>You work directly with the founders — no middlemen, no delays.</p>
+    </div>
+    <div class="why-item">
+      <h3><span class="check"><svg viewBox="0 0 10 10"><path d="M2 5l2.5 2.5L8 3" stroke="#3B6D11" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg></span>Post-launch support</h3>
+      <p>We don't disappear after launch. We're here to help you grow and improve.</p>
+    </div>
+  </div>
+</section>
+
+<section id="feedback">
+  <div class="section-label">Customer feedback</div>
+  <div class="section-title">Share your experience</div>
+  <div class="section-sub">Your feedback helps us grow and serve you better.</div>
+  <div class="feedback-wrap">
+    <h3>Leave us a review</h3>
+    <p class="sub">Tell us about your experience working with DevCraft.</p>
+    <div class="star-label">Rate your experience</div>
+    <div class="stars" id="stars">
+      <span class="star" data-v="1">&#9733;</span>
+      <span class="star" data-v="2">&#9733;</span>
+      <span class="star" data-v="3">&#9733;</span>
+      <span class="star" data-v="4">&#9733;</span>
+      <span class="star" data-v="5">&#9733;</span>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Full name</label><input type="text" id="fb-name" placeholder="Your name"></div>
+      <div class="form-group"><label>Email address</label><input type="email" id="fb-email" placeholder="your@email.com"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Service used</label>
+        <select id="fb-service">
+          <option value="">Select a service...</option>
+          <option>Website design</option>
+          <option>Frontend development</option>
+          <option>Full-stack application</option>
+          <option>Landing page</option>
+          <option>Portfolio website</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group"><label>How did you hear about us?</label>
+        <select id="fb-source">
+          <option value="">Select...</option>
+          <option>Friend / referral</option>
+          <option>Social media</option>
+          <option>College network</option>
+          <option>Online search</option>
+          <option>Other</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group" style="margin-bottom:12px;"><label>Your feedback</label>
+      <textarea id="fb-msg" placeholder="Tell us about your experience — what went well, what could be better..."></textarea>
+    </div>
+    <button class="submit-btn" onclick="submitFeedback()">Submit feedback</button>
+    <div class="success-msg" id="success-msg">Thank you for your feedback! We really appreciate it and will use it to keep improving.</div>
+  </div>
+</section>
+
+<section id="contact" style="padding-top:0;">
+  <div class="contact-bar">
+    <div>
+      <h3>Ready to start your project?</h3>
+      <p>Reach out directly — we respond fast.</p>
+    </div>
+    <div class="contact-info">
+      <div class="contact-item">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.15 2a2 2 0 012-2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.72 6.72l1.29-1.29a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        Santhosh: +91 6374122110
+      </div>
+      <div class="contact-item">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.15 2a2 2 0 012-2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.72 6.72l1.29-1.29a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        Saurav: +91 8056428450
+      </div>
+      <div class="contact-item">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        santhoshkumar.r.1009@gmail.com
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="footer">
+  &copy; 2025 <strong>DevCraft</strong> — Built by <strong>Santhoshkumar R</strong> & <strong>Saurav Karunakaran</strong>, Rajalakshmi Engineering College
+</div>
+
+<script>
+let selectedRating = 0;
+const stars = document.querySelectorAll('.star');
+stars.forEach(s => {
+  s.addEventListener('mouseover', () => {
+    const v = parseInt(s.dataset.v);
+    stars.forEach(st => st.classList.toggle('active', parseInt(st.dataset.v) <= v));
+  });
+  s.addEventListener('mouseout', () => {
+    stars.forEach(st => st.classList.toggle('active', parseInt(st.dataset.v) <= selectedRating));
+  });
+  s.addEventListener('click', () => {
+    selectedRating = parseInt(s.dataset.v);
+    stars.forEach(st => st.classList.toggle('active', parseInt(st.dataset.v) <= selectedRating));
+  });
+});
+
+function submitFeedback() {
+  const name = document.getElementById('fb-name').value.trim();
+  const email = document.getElementById('fb-email').value.trim();
+  const msg = document.getElementById('fb-msg').value.trim();
+  if (!name || !email || !msg || selectedRating === 0) {
+    alert('Please fill in your name, email, a message, and select a star rating.');
+    return;
+  }
+  document.querySelector('.submit-btn').disabled = true;
+  document.querySelector('.submit-btn').textContent = 'Submitting...';
+  setTimeout(() => {
+    document.getElementById('success-msg').style.display = 'block';
+    document.querySelector('.submit-btn').style.display = 'none';
+  }, 800);
+}
+</script>
